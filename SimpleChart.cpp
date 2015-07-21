@@ -88,10 +88,6 @@ void SimpleChart::update()
     else if (selected >= SIMPLE_NUMBER_OPTIONS)
         selected = 0;
 
-
-
-    upKey = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up);
-    downKey = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down);
     leftKey = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left);
     rightKey = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right);
 }
@@ -113,9 +109,9 @@ void SimpleChart::draw(sf::RenderWindow* window)
             window->draw(t);
     }
 
-    for (sf::CircleShape* p : points) {
-        if (graphWindow.contains(p->getPosition()))
-            window->draw(*p);
+    for (sf::CircleShape p : points) {
+        if (graphWindow.contains(p.getPosition()))
+            window->draw(p);
     }
     for (int i = 0; i < SIMPLE_NUMBER_OPTIONS; i++) {
         variableNames[i].setColor(TEXT_COLOR);
@@ -135,16 +131,11 @@ void SimpleChart::draw(sf::RenderWindow* window)
 }
 
 void SimpleChart::destroy()
-{
-    for (sf::CircleShape* p : points) {
-        delete p;
-        points.pop_back();
-    }
-}
+{}
 
 void SimpleChart::updateScale()
 {
-    range = hi - lo;
+    //range = hi - lo;
     firstGraphNumber = (int)std::max(abs((int)hi), abs((int)lo));
     if (firstGraphNumber <= 9)          pixelsByGroup = 1;
     else if (firstGraphNumber <= 19)    pixelsByGroup = 10;
@@ -155,11 +146,12 @@ void SimpleChart::updateScale()
 void SimpleChart::updatePoints()
 {
     if (!points.empty())
-        destroy();
+        points.clear();
     int i = 0;
     for (float p = lo; p <= hi; p += epsilon) {
-        points.push_back(new sf::CircleShape(1));
-        points[i]->setPosition(WINDOW_WIDTH / 2 + p * pixelsByUnit, WINDOW_HEIGHT / 2 - f(p) * pixelsByUnit);
+        sf::CircleShape newPoint(1);
+        points.push_back(newPoint);
+        points[i].setPosition(WINDOW_WIDTH / 2 + p * pixelsByUnit, WINDOW_HEIGHT / 2 - f(p) * pixelsByUnit);
         i++;
     }
 }
@@ -241,19 +233,19 @@ float SimpleChart::f(float x)
 {
     switch (function) {
         case Function::Triangular:
-            return triangular(x, variable);
+            return Functions::triangular(x, variable);
         case Function::FuncionR:
-            return funcionR(x, variable);
+            return Functions::funcionR(x, variable);
         case Function::FuncionG:
-            return funcionG(x, variable);
+            return Functions::funcionG(x, variable);
         case Function::FuncionS:
-            return funcionS(x, variable);
+            return Functions::funcionS(x, variable);
         case Function::Gausiana:
-            return gausiana(x, variable);
+            return Functions::gausiana(x, variable);
         case Function::Trapezoidal:
-            return trapezoidal(x, variable);
+            return Functions::trapezoidal(x, variable);
         case Function::PseudoExponencial:
-            return pseudoExponencial(x, variable);
+            return Functions::pseudoExponencial(x, variable);
         default:
             return 1;
     }

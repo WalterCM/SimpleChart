@@ -68,7 +68,7 @@ const float SIMPLE_FUNCTION_POS_Y = WINDOW_HEIGHT / 8;
 
 const int SIMPLE_NUMBER_OPTIONS = 6;                       // Number of options in the char
 const std::string SIMPLE_OPTION[] = {"a", "b", "c", "d", "m", "k"};
-const int SIMPLE_OPTION_SIZE = 30;                         // Size of the options
+const int SIMPLE_OPTION_SIZE = 20;                         // Size of the options
 // Position of each option
 const float SIMPLE_OPTION1_POS_X[] = {    WINDOW_WIDTH * 9 / 16,
                                           WINDOW_WIDTH * 10 / 16,

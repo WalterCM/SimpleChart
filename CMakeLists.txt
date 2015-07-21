@@ -19,7 +19,7 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
 set(SOURCE_FILES Main.cpp)
 add_executable(SimpleChart ${SOURCE_FILES} Main.cpp Program.hpp Program.cpp StateManager.hpp StateManager.cpp
                 MainMenu.hpp MainMenu.cpp ProgramConstants.hpp SelectFunction.hpp SelectFunction.cpp
-                Functions.hpp SimpleChart.hpp SimpleChart.cpp ProgramState.hpp ProgramState.cpp VariablesHandler.hpp VariablesHandler.cpp)
+                Functions.hpp SimpleChart.hpp SimpleChart.cpp ProgramState.hpp ProgramState.cpp VariablesHandler.hpp VariablesHandler.cpp Functions.cpp)
 
 # Link SFML library
 if(SFML_FOUND)
