@@ -7,6 +7,7 @@
 #include <ctime>
 #include <string>
 #include <array>
+#include <iomanip>
 #include "ProgramConstants.hpp"
 
 enum Variable {
@@ -85,12 +86,12 @@ public:
     std::array<std::string, SIMPLE_NUMBER_OPTIONS> getVariableString()
     {
         std::stringstream aString, bString, cString, dString, mString, kString;
-        aString << a;
-        bString << b;
-        cString << c;
-        dString << d;
-        mString << m;
-        kString << k;
+        aString << std::fixed << std::setprecision(1) << a;
+        bString << std::fixed << std::setprecision(1) << b;
+        cString << std::fixed << std::setprecision(1) << c;
+        dString << std::fixed << std::setprecision(1) << d;
+        mString << std::fixed << std::setprecision(1) << m;
+        kString << std::fixed << std::setprecision(1) << k;
         variableString[0] = aString.str();
         variableString[1] = bString.str();
         variableString[2] = cString.str();

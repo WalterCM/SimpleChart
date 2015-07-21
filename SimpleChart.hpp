@@ -40,7 +40,7 @@ private:
     std::vector<sf::CircleShape*>   points;
 
     const float                     epsilon = 0.01f;
-    
+
     float                           lo = -5;
     float                           hi = 5;
     float                           range;

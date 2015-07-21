@@ -88,12 +88,7 @@ void SimpleChart::update()
     else if (selected >= SIMPLE_NUMBER_OPTIONS)
         selected = 0;
 
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Return)) {
-        switch (selected) {
-            default:
-                break;
-        }
-    }
+
 
     upKey = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up);
     downKey = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down);
