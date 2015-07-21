@@ -28,26 +28,26 @@ public:
     {
         switch(v) {
             case A:
-                if (a + 1 != m)
-                    a++;
+                if (a + 0.1 < m)
+                    a += 0.1;
                 break;
             case B:
-                if (b + 1 != c)
-                    b++;
+                if (b + 0.1 < c)
+                    b += 0.1;
                 break;
             case C:
-                if (c + 1 != d)
-                c++;
+                if (c + 0.1 < d)
+                c += 0.1;
                 break;
             case D:
-                d++;
+                d += 0.1;
                 break;
             case M:
-                if (m + 1 != b)
-                    m++;
+                if (m + 0.1 < b)
+                    m += 0.1;
                 break;
             case K:
-                k++;
+                k += 0.1;
                 break;
             default:break;
         }
@@ -57,26 +57,26 @@ public:
     {
         switch(v) {
             case A:
-                a--;
+                a -= 0.1;
                 break;
             case B:
-                if (b - 1 != m)
-                    b--;
+                if (b - 0.1 > m)
+                    b -= 0.1;
                 break;
             case C:
-                if (c - 1 != b)
-                    c--;
+                if (c - 0.1 > b)
+                    c -= 0.1;
                 break;
             case D:
-                if (d - 1 != c)
-                    d--;
+                if (d - 0.1 > c)
+                    d -= 0.1;
                 break;
             case M:
-                if (m - 1 != a)
-                    m--;
+                if (m - 0.1 > a)
+                    m -= 0.1;
                 break;
             case K:
-                k--;
+                k -= 0.1;
                 break;
             default:break;
         }

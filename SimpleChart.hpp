@@ -37,13 +37,12 @@ private:
     sf::Text                        functionName;
 
     sf::Rect<float>                 graphWindow;
-    std::vector<sf::CircleShape>    points;
+    std::vector<sf::CircleShape*>   points;
 
     const float                     epsilon = 0.01f;
     
     float                           lo = -5;
     float                           hi = 5;
-    int                             numberOfPoints;
     float                           range;
     int                             firstGraphNumber;
 

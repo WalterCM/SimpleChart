@@ -62,7 +62,6 @@ void SimpleChart::init()
 
 void SimpleChart::update()
 {
-
     initializeAxis();
     updateVariableValues();
 
@@ -72,11 +71,11 @@ void SimpleChart::update()
             this->changeState(this->stateManager, new SelectFunction());
         }
     }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up) && !upKey) {
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up)) {
         variable.increase(selected);
         updatePoints();
     }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down) && !downKey) {
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down)) {
         variable.decrease(selected);
         updatePoints();
     }
@@ -119,9 +118,9 @@ void SimpleChart::draw(sf::RenderWindow* window)
             window->draw(t);
     }
 
-    for (sf::CircleShape p : points) {
-        if (graphWindow.contains(p.getPosition()))
-            window->draw(p);
+    for (sf::CircleShape* p : points) {
+        if (graphWindow.contains(p->getPosition()))
+            window->draw(*p);
     }
     for (int i = 0; i < SIMPLE_NUMBER_OPTIONS; i++) {
         variableNames[i].setColor(TEXT_COLOR);
@@ -141,7 +140,12 @@ void SimpleChart::draw(sf::RenderWindow* window)
 }
 
 void SimpleChart::destroy()
-{}
+{
+    for (sf::CircleShape* p : points) {
+        delete p;
+        points.pop_back();
+    }
+}
 
 void SimpleChart::updateScale()
 {
@@ -151,17 +155,16 @@ void SimpleChart::updateScale()
     else if (firstGraphNumber <= 19)    pixelsByGroup = 10;
     else                                pixelsByGroup = 50;
     pixelsByUnit = AXIS_SIZE / (firstGraphNumber * 2);
-    numberOfPoints = (int)(range / epsilon);
 }
 
 void SimpleChart::updatePoints()
 {
+    if (!points.empty())
+        destroy();
     int i = 0;
     for (float p = lo; p <= hi; p += epsilon) {
-        sf::CircleShape newPoint(1);
-        points.push_back(newPoint);
-
-        points[i].setPosition(WINDOW_WIDTH / 2 + p * pixelsByUnit, WINDOW_HEIGHT / 2 - f(p) * pixelsByUnit);
+        points.push_back(new sf::CircleShape(1));
+        points[i]->setPosition(WINDOW_WIDTH / 2 + p * pixelsByUnit, WINDOW_HEIGHT / 2 - f(p) * pixelsByUnit);
         i++;
     }
 }

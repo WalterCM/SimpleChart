@@ -4,6 +4,7 @@
 
 #include <cstdlib>
 #include <ctime>
+#include "VariablesHandler.hpp"
 
 enum Function {
     Triangular,
