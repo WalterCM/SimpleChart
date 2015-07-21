@@ -1,4 +1,4 @@
-# Simple Graph
+# Simple Chart
 ==============
 
 # Features
