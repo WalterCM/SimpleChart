@@ -1,17 +1,16 @@
-#include <iostream>
-#include <sstream>
+
 #include <cmath>
 #include "SimpleChart.hpp"
-#include "ProgramConstants.hpp"
 #include "Functions.hpp"
 #include "SelectFunction.hpp"
-using namespace std;
+
 SimpleChart::SimpleChart(int function)
         : xAxis(sf::Vector2f(AXIS_SIZE, AXIS_THICKNESS))
         , yAxis(sf::Vector2f(AXIS_SIZE, AXIS_THICKNESS))
         , graphWindow((WINDOW_WIDTH - AXIS_SIZE) / 2, (WINDOW_HEIGHT - AXIS_SIZE) / 2, AXIS_SIZE, AXIS_SIZE)
         , font()
         , title()
+        , functionName()
 {
     this->function = function;
 }
@@ -33,16 +32,39 @@ void SimpleChart::init()
     title.setFont(font);
     title.setPosition(SIMPLE_TITLE_POS_X, SIMPLE_TITLE_POS_Y);
     title.setCharacterSize(SIMPLE_TITLE_SIZE);
+
+    functionName.setString(getFunctionTitle());
+    functionName.setFont(font);
+    functionName.setPosition(SIMPLE_FUNCTION_POS_X, SIMPLE_FUNCTION_POS_Y);
+    functionName.setCharacterSize(SIMPLE_FUNCTION_SIZE);
+
+    for (int i = 0; i < SIMPLE_NUMBER_OPTIONS; i++) {
+        sf::Text newVariableName;
+        variableNames.push_back(newVariableName);
+        variableNames[i].setFont(font);
+        variableNames[i].setString(SIMPLE_OPTION[i]);
+        variableNames[i].setPosition(SIMPLE_OPTION1_POS_X[i], SIMPLE_OPTION_POS_Y);
+        variableNames[i].setCharacterSize(SIMPLE_OPTION_SIZE);
+    }
+
+    for (int i = 0; i < SIMPLE_NUMBER_OPTIONS; i++) {
+        sf::Text newVariableValue;
+        variableValue.push_back(newVariableValue);
+        variableValue[i].setFont(font);
+        variableValue[i].setPosition(SIMPLE_OPTION1_POS_X[i], SIMPLE_OPTION_VALUE_POS_Y);
+        variableValue[i].setCharacterSize(SIMPLE_OPTION_SIZE);
+    }
+    updateScale();
+    updatePoints();
+
+    selected = 0;
 }
 
 void SimpleChart::update()
 {
-    updateScale();
-    for (int i = 0; i <= numberOfPoints; i++) {
-        sf::CircleShape newPoint(1);
-        points.push_back(newPoint);
-    }
+
     initializeAxis();
+    updateVariableValues();
 
     time += clock.restart();
     if (time > sf::seconds(KEYBOARD_DELAY)) {
@@ -50,10 +72,14 @@ void SimpleChart::update()
             this->changeState(this->stateManager, new SelectFunction());
         }
     }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up) && !upKey)
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up) && !upKey) {
         variable.increase(selected);
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down) && !downKey)
+        updatePoints();
+    }
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down) && !downKey) {
         variable.decrease(selected);
+        updatePoints();
+    }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left) && !leftKey)
         selected--;
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right) && !rightKey)
@@ -74,12 +100,6 @@ void SimpleChart::update()
     downKey = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down);
     leftKey = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left);
     rightKey = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right);
-
-    int i = 0;
-    for (float p = lo; p <= hi; p += epsilon) {
-    points[i].setPosition(WINDOW_WIDTH / 2 + p * pixelsByUnit, WINDOW_HEIGHT / 2 - f(p) * pixelsByUnit);
-        i++;
-    }
 }
 
 void SimpleChart::draw(sf::RenderWindow* window)
@@ -87,6 +107,7 @@ void SimpleChart::draw(sf::RenderWindow* window)
     window->draw(xAxis);
     window->draw(yAxis);
     window->draw(title);
+    window->draw(functionName);
 
     for (sf::Text t : xAxisNumbers) {
         if (t.getString() != "0" && (int)t.getPosition().x % pixelsByGroup == 0)
@@ -102,6 +123,21 @@ void SimpleChart::draw(sf::RenderWindow* window)
         if (graphWindow.contains(p.getPosition()))
             window->draw(p);
     }
+    for (int i = 0; i < SIMPLE_NUMBER_OPTIONS; i++) {
+        variableNames[i].setColor(TEXT_COLOR);
+    }
+
+    variableNames[selected].setColor(TEXT_COLOR_SELECTED);
+    for (sf::Text t : variableNames)
+        window->draw(t);
+
+    for (int i = 0; i < SIMPLE_NUMBER_OPTIONS; i++) {
+        variableValue[i].setColor(TEXT_COLOR);
+    }
+
+    variableValue[selected].setColor(TEXT_COLOR_SELECTED);
+    for (sf::Text t : variableValue)
+        window->draw(t);
 }
 
 void SimpleChart::destroy()
@@ -116,6 +152,18 @@ void SimpleChart::updateScale()
     else                                pixelsByGroup = 50;
     pixelsByUnit = AXIS_SIZE / (firstGraphNumber * 2);
     numberOfPoints = (int)(range / epsilon);
+}
+
+void SimpleChart::updatePoints()
+{
+    int i = 0;
+    for (float p = lo; p <= hi; p += epsilon) {
+        sf::CircleShape newPoint(1);
+        points.push_back(newPoint);
+
+        points[i].setPosition(WINDOW_WIDTH / 2 + p * pixelsByUnit, WINDOW_HEIGHT / 2 - f(p) * pixelsByUnit);
+        i++;
+    }
 }
 
 void SimpleChart::initializeAxis()
@@ -152,6 +200,45 @@ void SimpleChart::initializeAxis()
     }
 }
 
+std::string SimpleChart::getFunctionTitle()
+{
+    std::string functionName = "Funcion ";
+    switch(function) {
+        case Triangular:
+            functionName += "Triangular";
+            break;
+        case Function::FuncionR:
+            functionName += "r (Gamma)";
+            break;
+        case Function::FuncionG:
+            functionName += "G (Gamma)";
+            break;
+        case Function::FuncionS:
+            functionName += "S";
+            break;
+        case Function::Gausiana:
+            functionName += "Gausiana";
+            break;
+        case Function::Trapezoidal:
+            functionName += "Trapezoidal";
+            break;
+        case Function::PseudoExponencial:
+            functionName += "Pseudo Exponencial";
+            break;
+        default:
+            break;
+    }
+    return functionName;
+}
+
+void SimpleChart::updateVariableValues()
+{
+    std::array<std::string, SIMPLE_NUMBER_OPTIONS> variableString = variable.getVariableString();
+    for (int i = 0; i < SIMPLE_NUMBER_OPTIONS; i++) {
+        variableValue[i].setString(variableString[i]);
+    }
+}
+
 float SimpleChart::f(float x)
 {
     switch (function) {
@@ -173,5 +260,3 @@ float SimpleChart::f(float x)
             return 1;
     }
 }
-
-

@@ -2,8 +2,12 @@
 #ifndef SIMPLECHART_VARIABLESHANDLER_HPP
 #define SIMPLECHART_VARIABLESHANDLER_HPP
 
+#include <sstream>
 #include <cstdlib>
 #include <ctime>
+#include <string>
+#include <array>
+#include "ProgramConstants.hpp"
 
 enum Variable {
     A,
@@ -24,19 +28,23 @@ public:
     {
         switch(v) {
             case A:
-                a++;
+                if (a + 1 != m)
+                    a++;
                 break;
             case B:
-                b++;
+                if (b + 1 != c)
+                    b++;
                 break;
             case C:
+                if (c + 1 != d)
                 c++;
                 break;
             case D:
                 d++;
                 break;
             case M:
-                m++;
+                if (m + 1 != b)
+                    m++;
                 break;
             case K:
                 k++;
@@ -52,22 +60,45 @@ public:
                 a--;
                 break;
             case B:
-                b--;
+                if (b - 1 != m)
+                    b--;
                 break;
             case C:
-                c--;
+                if (c - 1 != b)
+                    c--;
                 break;
             case D:
-                d--;
+                if (d - 1 != c)
+                    d--;
                 break;
             case M:
-                m--;
+                if (m - 1 != a)
+                    m--;
                 break;
             case K:
                 k--;
                 break;
             default:break;
         }
+    }
+
+    std::array<std::string, SIMPLE_NUMBER_OPTIONS> getVariableString()
+    {
+        std::stringstream aString, bString, cString, dString, mString, kString;
+        aString << a;
+        bString << b;
+        cString << c;
+        dString << d;
+        mString << m;
+        kString << k;
+        variableString[0] = aString.str();
+        variableString[1] = bString.str();
+        variableString[2] = cString.str();
+        variableString[3] = dString.str();
+        variableString[4] = mString.str();
+        variableString[5] = kString.str();
+
+        return variableString;
     }
 
     void randomize(Variable v)
@@ -101,7 +132,7 @@ public:
     float m = 2;
     float k = 1;
 private:
-
+    std::array<std::string, SIMPLE_NUMBER_OPTIONS> variableString;
     const float MAX_NUMBER = 6;
 };
 

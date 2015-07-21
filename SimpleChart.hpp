@@ -17,16 +17,22 @@ public:
 
 private:
     void                            updateScale();
+    void                            updatePoints();
     void                            initializeAxis();
+    std::string                     getFunctionTitle();
+    void                            updateVariableValues();
     float                           f(float x);
 
     sf::RectangleShape              xAxis;
     sf::RectangleShape              yAxis;
 
-    sf::Font                        font;
     std::vector<sf::Text>           xAxisNumbers;
     std::vector<sf::Text>           yAxisNumbers;
 
+    std::vector<sf::Text>           variableNames;
+    std::vector<sf::Text>           variableValue;
+
+    sf::Font                        font;
     sf::Text                        title;
     sf::Text                        functionName;
 
