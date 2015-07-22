@@ -69,6 +69,11 @@ void VariablesHandler::decrease(int v)
     }
 }
 
+float VariablesHandler::fixM()
+{
+    variable[M] = (variable[A] + variable[B]) / 2;
+}
+
 std::vector<std::string> VariablesHandler::getVariableString()
 {
     std::vector<std::string> variableString;
@@ -104,5 +109,6 @@ void VariablesHandler::randomize(Variable v)
             break;
     }*/
 }
+
 
 

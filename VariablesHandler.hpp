@@ -34,6 +34,7 @@ public:
     float getM() {  return variable[M]; }
     float getK() {  return variable[K]; }
 
+    float fixM();
 
     std::vector<std::string> getVariableString();
 
@@ -41,7 +42,6 @@ public:
     std::vector<int> index;
 private:
     float variable[6] = {1, 3, 4, 5, 2, 1};
-    int function;
 };
 
 #endif //SIMPLECHART_VARIABLESHANDLER_HPP

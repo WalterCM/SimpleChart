@@ -34,10 +34,11 @@ float Functions::funcionS(float x, VariablesHandler variables) {
     if (x <= variables.getA())
         return 0;
     if (x > variables.getA() && x <= variables.getM())
-        return 2 * (float)pow((x - variables.getA()) / (variables.getB() - variables.getA()), 2);
+        return 2 * (
+float)pow((x - variables.getA()) / (variables.getB() - variables.getA()), 2);
     if (x > variables.getM() && x < variables.getB())
         return 1 - 2 * (float)pow((x - variables.getB()) / (variables.getB() - variables.getA()), 2);
-    else
+    else if (x >= variables.getB())
         return 1;
 }
 

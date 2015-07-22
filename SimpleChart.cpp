@@ -139,7 +139,6 @@ void SimpleChart::destroy()
 
 void SimpleChart::updateScale()
 {
-    //range = hi - lo;
     firstGraphNumber = (int)std::max(abs((int)hi), abs((int)lo));
     if (firstGraphNumber <= 9)          pixelsByGroup = 1;
     else if (firstGraphNumber <= 19)    pixelsByGroup = 10;
