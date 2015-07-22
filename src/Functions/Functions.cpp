@@ -1,7 +1,7 @@
 
 #include <cmath>
 #include "Functions.hpp"
-#include "VariablesHandler.hpp"
+#include "../SimpleChart/VariablesHandler.hpp"
 
 
 float Functions::triangular(float x, VariablesHandler variables)

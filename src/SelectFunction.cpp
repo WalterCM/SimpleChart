@@ -1,7 +1,7 @@
 
 #include "SelectFunction.hpp"
 #include "MainMenu.hpp"
-#include "SimpleChart.hpp"
+#include "SimpleChart/SimpleChart.hpp"
 
 SelectFunction::SelectFunction()
         : font()

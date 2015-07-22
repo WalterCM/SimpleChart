@@ -1,8 +1,8 @@
 
 #include <cmath>
 #include "SimpleChart.hpp"
-#include "Functions.hpp"
-#include "SelectFunction.hpp"
+#include "../Functions/Functions.hpp"
+#include "../SelectFunction.hpp"
 
 SimpleChart::SimpleChart(int function)
         : xAxis(sf::Vector2f(AXIS_SIZE, AXIS_THICKNESS))

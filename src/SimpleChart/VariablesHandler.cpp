@@ -1,6 +1,6 @@
 
 #include "VariablesHandler.hpp"
-#include "Functions.hpp"
+#include "../Functions/Functions.hpp"
 
 VariablesHandler::VariablesHandler(int function)
 {

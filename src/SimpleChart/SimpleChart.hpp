@@ -2,7 +2,7 @@
 #ifndef SIMPLECHART_SIMPLECHART_HPP
 #define SIMPLECHART_SIMPLECHART_HPP
 
-#include "StateManager.hpp"
+#include "../StateManager.hpp"
 #include "VariablesHandler.hpp"
 
 class SimpleChart : public ProgramState

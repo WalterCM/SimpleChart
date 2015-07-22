@@ -16,10 +16,26 @@ find_package(SFML REQUIRED Graphics Window)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
 
 # set source files and executables
-set(SOURCE_FILES Main.cpp)
-add_executable(SimpleChart ${SOURCE_FILES} Main.cpp Program.hpp Program.cpp StateManager.hpp StateManager.cpp
-                MainMenu.hpp MainMenu.cpp ProgramConstants.hpp SelectFunction.hpp SelectFunction.cpp
-                Functions.hpp SimpleChart.hpp SimpleChart.cpp ProgramState.hpp ProgramState.cpp VariablesHandler.hpp VariablesHandler.cpp Functions.cpp)
+set(SOURCE_FILES src/Main.cpp)
+add_executable(SimpleChart ${SOURCE_FILES}
+                src/Main.cpp
+                src/Program.hpp
+                src/Program.cpp
+                src/StateManager.hpp
+                src/StateManager.cpp
+                src/MainMenu.hpp
+                src/MainMenu.cpp
+                src/ProgramConstants.hpp
+                src/SelectFunction.hpp
+                src/SelectFunction.cpp
+                src/Functions/Functions.hpp
+                src/SimpleChart/SimpleChart.hpp
+                src/SimpleChart/SimpleChart.cpp
+                src/ProgramState.hpp
+                src/ProgramState.cpp
+                src/SimpleChart/VariablesHandler.hpp
+                src/SimpleChart/VariablesHandler.cpp
+                src/Functions/Functions.cpp)
 
 # Link SFML library
 if(SFML_FOUND)
