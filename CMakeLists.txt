@@ -28,14 +28,14 @@ add_executable(SimpleChart ${SOURCE_FILES}
                 src/ProgramConstants.hpp
                 src/SelectFunction.hpp
                 src/SelectFunction.cpp
-                src/Functions/Functions.hpp
+                src/Functions/FuzzyLogicFunctions.hpp
                 src/SimpleChart/SimpleChart.hpp
                 src/SimpleChart/SimpleChart.cpp
                 src/ProgramState.hpp
                 src/ProgramState.cpp
                 src/SimpleChart/VariablesHandler.hpp
                 src/SimpleChart/VariablesHandler.cpp
-                src/Functions/Functions.cpp)
+                src/Functions/FuzzyLogicFunctions.cpp)
 
 # Link SFML library
 if(SFML_FOUND)

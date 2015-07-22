@@ -1,6 +1,6 @@
 
 #include "VariablesHandler.hpp"
-#include "../Functions/Functions.hpp"
+#include "../Functions/FuzzyLogicFunctions.hpp"
 
 VariablesHandler::VariablesHandler(int function, int scale)
 {

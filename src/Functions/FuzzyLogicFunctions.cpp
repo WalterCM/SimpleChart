@@ -1,6 +1,6 @@
 
 #include <cmath>
-#include "Functions.hpp"
+#include "FuzzyLogicFunctions.hpp"
 #include "../SimpleChart/VariablesHandler.hpp"
 
 

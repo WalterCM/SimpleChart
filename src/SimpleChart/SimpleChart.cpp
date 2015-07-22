@@ -1,7 +1,7 @@
 
 #include <cmath>
 #include "SimpleChart.hpp"
-#include "../Functions/Functions.hpp"
+#include "../Functions/FuzzyLogicFunctions.hpp"
 #include "../SelectFunction.hpp"
 
 SimpleChart::SimpleChart(int function)
