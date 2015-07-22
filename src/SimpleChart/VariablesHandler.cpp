@@ -2,10 +2,11 @@
 #include "VariablesHandler.hpp"
 #include "../Functions/Functions.hpp"
 
-VariablesHandler::VariablesHandler(int function)
+VariablesHandler::VariablesHandler(int function, int scale)
 {
     srand(time(0));
     this->function = function;
+    setScale(scale);
     switch (function) {
         case Triangular:
             index.push_back(A);
@@ -72,17 +73,17 @@ void VariablesHandler::randomize(int v)
 {
     int w = index[v];
     if (w == K || (w == index.front() && index[v + 1] == K)) {
-        variable[w] = (rand() % (MAX_RANDOM - MIN_RANDOM) + MIN_RANDOM) / 10.0f;
-    } else if (w == index.back() || index[v + 1] == K) {
-        int minRandom = (int) (variable[index[v - 1]] * 10);
-        variable[w] = (rand() % (MAX_RANDOM - minRandom) + minRandom) / 10.0f;
-    } else if (w == index.front()) {
-        int maxRandom = (int) (variable[index[v + 1]] * 10);
-        variable[w] = (rand() % (maxRandom - MIN_RANDOM) + MIN_RANDOM) / 10.0f;
-    } else {
-        int minRandom = (int) (variable[index[v - 1]] * 10);
-        int maxRandom = (int) (variable[index[v + 1]] * 10);
         variable[w] = (rand() % (maxRandom - minRandom) + minRandom) / 10.0f;
+    } else if (w == index.back() || index[v + 1] == K) {
+        int mi = (int) (variable[index[v - 1]] * 10);
+        variable[w] = (rand() % (maxRandom - mi) + mi) / 10.0f;
+    } else if (w == index.front()) {
+        int ma = (int) (variable[index[v + 1]] * 10);
+        variable[w] = (rand() % (ma - minRandom) + minRandom) / 10.0f;
+    } else {
+        int mi = (int) (variable[index[v - 1]] * 10);
+        int ma = (int) (variable[index[v + 1]] * 10);
+        variable[w] = (rand() % (ma - mi) + mi) / 10.0f;
     }
 
     if (function == FuncionS)
@@ -93,6 +94,14 @@ float VariablesHandler::fixM()
 {
     variable[M] = (variable[A] + variable[B]) / 2;
 }
+
+
+void VariablesHandler::setScale(int scale)
+{
+    minRandom = scale * -10;
+    maxRandom = scale * 10;
+}
+
 
 std::vector<std::string> VariablesHandler::getVariableString()
 {
@@ -105,8 +114,4 @@ std::vector<std::string> VariablesHandler::getVariableString()
 
     return variableString;
 }
-
-
-
-
 

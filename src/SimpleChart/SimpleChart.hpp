@@ -18,7 +18,10 @@ public:
 private:
     void                            updateScale();
     void                            updatePoints();
-    void                            initializeAxis();
+    void                            zoomIn();
+    void                            zoomOut();
+
+    void                            updateAxis();
     std::string                     getFunctionTitle();
     void                            updateVariableValues();
     float                           f(float x);
@@ -41,9 +44,7 @@ private:
 
     const float                     epsilon = 0.01f;
 
-    float                           lo = -5;
-    float                           hi = 5;
-    int                             firstGraphNumber;
+    float                           scale = 5;
 
     int                             pixelsByUnit;
     int                             pixelsByGroup;

@@ -11,7 +11,7 @@ SimpleChart::SimpleChart(int function)
         , font()
         , title()
         , functionName()
-        , variables(function)
+        , variables(function, (int)scale)
 {
     this->function = function;
 }
@@ -57,38 +57,40 @@ void SimpleChart::init()
     }
     updateScale();
     updatePoints();
-    updateVariableValues();
 
     selected = 0;
 }
 
 void SimpleChart::update()
 {
-    initializeAxis();
-
-
     time += clock.restart();
     if (time > sf::seconds(KEYBOARD_DELAY)) {
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape)) {
             this->changeState(this->stateManager, new SelectFunction());
         }
 
-
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Add)) {
+            zoomIn();
+            updatePoints();
+            variables.setScale((int)scale);
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Subtract)) {
+            zoomOut();
+            updatePoints();
+            variables.setScale((int)scale);
+        }
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up)) {
         variables.increase(selected);
         updatePoints();
-        updateVariableValues();
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down)) {
         variables.decrease(selected);
         updatePoints();
-        updateVariableValues();
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::R) && !rKey) {
         variables.randomize(selected);
         updatePoints();
-        updateVariableValues();
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left) && !leftKey)
         selected--;
@@ -147,11 +149,12 @@ void SimpleChart::destroy()
 
 void SimpleChart::updateScale()
 {
-    firstGraphNumber = (int)std::max(abs((int)hi), abs((int)lo));
-    if (firstGraphNumber <= 9)          pixelsByGroup = 1;
+    /*if (firstGraphNumber <= 9)          pixelsByGroup = 1;
     else if (firstGraphNumber <= 19)    pixelsByGroup = 10;
-    else                                pixelsByGroup = 50;
-    pixelsByUnit = AXIS_SIZE / (firstGraphNumber * 2);
+    else                                pixelsByGroup = 50; */
+    pixelsByGroup = 1;
+    pixelsByUnit = AXIS_SIZE / ((int)scale * 2);
+    updateAxis();
 }
 
 void SimpleChart::updatePoints()
@@ -159,21 +162,39 @@ void SimpleChart::updatePoints()
     if (!points.empty())
         points.clear();
     int i = 0;
-    for (float p = lo; p <= hi; p += epsilon) {
+    for (float p = -scale; p <= scale; p += epsilon) {
         sf::CircleShape newPoint(1);
         points.push_back(newPoint);
         points[i].setPosition(WINDOW_WIDTH / 2 + p * pixelsByUnit, WINDOW_HEIGHT / 2 - f(p) * pixelsByUnit);
         i++;
     }
+
+    updateVariableValues();
 }
 
-void SimpleChart::initializeAxis()
+void SimpleChart::zoomIn()
 {
-    for (int i = 0; i <= firstGraphNumber * 2; i++) {
+    if (scale - 1 > 1) {
+        scale--;
+        updateScale();
+    }
+}
+
+void SimpleChart::zoomOut()
+{
+    scale++;
+    updateScale();
+}
+
+void SimpleChart::updateAxis()
+{
+    if (!xAxisNumbers.empty())
+        xAxisNumbers.clear();
+    for (int i = 0; i <= scale * 2; i++) {
         sf::Text newText;
         xAxisNumbers.push_back(newText);
         xAxisNumbers[i].setFont(font);
-        int number = i - firstGraphNumber;
+        int number = i - scale;
         std::stringstream ss;
         ss << number;
         std::string s = ss.str();
@@ -184,13 +205,15 @@ void SimpleChart::initializeAxis()
         xAxisNumbers[i].setPosition(WINDOW_WIDTH / 2 + number * pixelsByUnit, WINDOW_HEIGHT / 2 + 10);
     }
 
-    for (int i = 0; i <= firstGraphNumber * 2; i++) {
+    if (!yAxisNumbers.empty())
+        yAxisNumbers.clear();
+    for (int i = 0; i <= scale * 2; i++) {
         sf::Text newText;
         yAxisNumbers.push_back(newText);
         yAxisNumbers[i].setFont(font);
 
         std::stringstream ss;
-        int number = i - firstGraphNumber;
+        int number = i - scale;
         ss << number;
         std::string s = ss.str();
         yAxisNumbers[i].setString(s);

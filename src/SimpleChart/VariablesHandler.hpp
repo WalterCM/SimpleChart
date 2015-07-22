@@ -23,10 +23,15 @@ enum Variable {
 
 class VariablesHandler {
 public:
-    VariablesHandler(int function);
+    VariablesHandler(int function, int scale);
 
     void increase(int v);
     void decrease(int v);
+    void randomize(int v);
+
+    float fixM();
+    void setScale(int scale);
+
     float getA() {  return variable[A]; }
     float getB() {  return variable[B]; }
     float getC() {  return variable[C]; }
@@ -34,17 +39,13 @@ public:
     float getM() {  return variable[M]; }
     float getK() {  return variable[K]; }
 
-    float fixM();
-
     std::vector<std::string> getVariableString();
-
-    void randomize(int v);
     std::vector<int> index;
 private:
     int function;
     float variable[6] = {1, 3, 4, 5, 2, 1};
-    const int MAX_RANDOM = 60;
-    const int MIN_RANDOM = -60;
+    int maxRandom;
+    int minRandom;
 };
 
 #endif //SIMPLECHART_VARIABLESHANDLER_HPP
