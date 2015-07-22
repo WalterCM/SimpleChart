@@ -53,6 +53,7 @@ private:
 
     int                             selected;
     bool                            leftKey, rightKey;
+    bool                            addKey, subtractKey;
     bool                            rKey;
 
     VariablesHandler                variables;

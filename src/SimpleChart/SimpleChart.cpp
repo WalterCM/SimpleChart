@@ -69,12 +69,12 @@ void SimpleChart::update()
             this->changeState(this->stateManager, new SelectFunction());
         }
 
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Add)) {
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Add) && !addKey) {
             zoomIn();
             updatePoints();
             variables.setScale((int)scale);
         }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Subtract)) {
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Subtract) && !subtractKey) {
             zoomOut();
             updatePoints();
             variables.setScale((int)scale);
@@ -101,6 +101,8 @@ void SimpleChart::update()
     else if (selected >= (int)(variables.index.size()))
         selected = 0;
 
+    addKey = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Add);
+    subtractKey = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Subtract);
     rKey = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::R);
     leftKey = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left);
     rightKey = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right);
@@ -149,10 +151,8 @@ void SimpleChart::destroy()
 
 void SimpleChart::updateScale()
 {
-    /*if (firstGraphNumber <= 9)          pixelsByGroup = 1;
-    else if (firstGraphNumber <= 19)    pixelsByGroup = 10;
-    else                                pixelsByGroup = 50; */
-    pixelsByGroup = 1;
+    if (scale <= 9)             pixelsByGroup = 1;
+    else if (scale == 10)       pixelsByGroup = 10;
     pixelsByUnit = AXIS_SIZE / ((int)scale * 2);
     updateAxis();
 }
@@ -174,7 +174,7 @@ void SimpleChart::updatePoints()
 
 void SimpleChart::zoomIn()
 {
-    if (scale - 1 > 1) {
+    if (scale > 2) {
         scale--;
         updateScale();
     }
@@ -182,8 +182,10 @@ void SimpleChart::zoomIn()
 
 void SimpleChart::zoomOut()
 {
-    scale++;
-    updateScale();
+    if (scale < 10) {
+        scale++;
+        updateScale();
+    }
 }
 
 void SimpleChart::updateAxis()
@@ -194,7 +196,7 @@ void SimpleChart::updateAxis()
         sf::Text newText;
         xAxisNumbers.push_back(newText);
         xAxisNumbers[i].setFont(font);
-        int number = i - scale;
+        int number = i - (int)scale;
         std::stringstream ss;
         ss << number;
         std::string s = ss.str();
@@ -213,7 +215,7 @@ void SimpleChart::updateAxis()
         yAxisNumbers[i].setFont(font);
 
         std::stringstream ss;
-        int number = i - scale;
+        int number = i - (int)scale;
         ss << number;
         std::string s = ss.str();
         yAxisNumbers[i].setString(s);
