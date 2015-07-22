@@ -41,6 +41,8 @@ void SelectFunction::update()
     time += clock.restart();
 
     if (time > sf::seconds(KEYBOARD_DELAY)) {
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape))
+            this->changeState(this->stateManager, new MainMenu());
         if ((sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up) && !upKey) ||
             (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left) && !leftKey))
             selected--;
