@@ -5,6 +5,7 @@
 VariablesHandler::VariablesHandler(int function)
 {
     srand(time(0));
+    this->function = function;
     switch (function) {
         case Triangular:
             index.push_back(A);
@@ -48,12 +49,11 @@ void VariablesHandler::increase(int v)
     int w = index[v];
     if (w == index.back() || w == K)
         variable[w] += VARIABLE_DELTA;
-    else {
-        int i;
-        for (i = 0; w != index[i]; i++);
-        if (variable[index[i]] + VARIABLE_DELTA <= variable[index[i + 1]])
+    else
+        if (variable[index[v]] + VARIABLE_DELTA <= variable[index[v + 1]] || index[v + 1] == K)
             variable[w] += VARIABLE_DELTA;
-    }
+    if (function == FuncionS)
+        fixM();
 }
 
 void VariablesHandler::decrease(int v)
@@ -61,12 +61,32 @@ void VariablesHandler::decrease(int v)
     int w = index[v];
     if (w == index.front() || w == A || w == K)
         variable[w] -= VARIABLE_DELTA;
-    else {
-        int i;
-        for (i = 0; w != index[i]; i++);
-        if (variable[index[i]] - VARIABLE_DELTA >= variable[index[i - 1]])
+    else
+        if (variable[index[v]] - VARIABLE_DELTA >= variable[index[v - 1]])
             variable[w] -= VARIABLE_DELTA;
+    if (function == FuncionS)
+        fixM();
+}
+
+void VariablesHandler::randomize(int v)
+{
+    int w = index[v];
+    if (w == K || (w == index.front() && index[v + 1] == K)) {
+        variable[w] = (rand() % (MAX_RANDOM - MIN_RANDOM) + MIN_RANDOM) / 10.0f;
+    } else if (w == index.back() || index[v + 1] == K) {
+        int minRandom = (int) (variable[index[v - 1]] * 10);
+        variable[w] = (rand() % (MAX_RANDOM - minRandom) + minRandom) / 10.0f;
+    } else if (w == index.front()) {
+        int maxRandom = (int) (variable[index[v + 1]] * 10);
+        variable[w] = (rand() % (maxRandom - MIN_RANDOM) + MIN_RANDOM) / 10.0f;
+    } else {
+        int minRandom = (int) (variable[index[v - 1]] * 10);
+        int maxRandom = (int) (variable[index[v + 1]] * 10);
+        variable[w] = (rand() % (maxRandom - minRandom) + minRandom) / 10.0f;
     }
+
+    if (function == FuncionS)
+        fixM();
 }
 
 float VariablesHandler::fixM()
@@ -86,29 +106,7 @@ std::vector<std::string> VariablesHandler::getVariableString()
     return variableString;
 }
 
-void VariablesHandler::randomize(Variable v)
-{/*
-    switch(v) {
-        case A:
-            a = rand() % (int)m;
-            break;
-        case B:
-            b = rand() % (int)(c - m) + m;
-            break;
-        case C:
-            c = rand() % (int)(d - b) + b;
-            break;
-        case D:
-            d = rand() % (int)(MAX_NUMBER - c) + c;
-            break;
-        case M:
-            m = rand() % (int)(b - a) + a;
-            break;
-        case K:
-            k = rand() % (int)(MAX_NUMBER);
-            break;
-    }*/
-}
+
 
 
 

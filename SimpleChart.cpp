@@ -72,6 +72,8 @@ void SimpleChart::update()
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape)) {
             this->changeState(this->stateManager, new SelectFunction());
         }
+
+
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up)) {
         variables.increase(selected);
@@ -80,6 +82,11 @@ void SimpleChart::update()
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down)) {
         variables.decrease(selected);
+        updatePoints();
+        updateVariableValues();
+    }
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::R) && !rKey) {
+        variables.randomize(selected);
         updatePoints();
         updateVariableValues();
     }
@@ -92,6 +99,7 @@ void SimpleChart::update()
     else if (selected >= (int)(variables.index.size()))
         selected = 0;
 
+    rKey = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::R);
     leftKey = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left);
     rightKey = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right);
 }

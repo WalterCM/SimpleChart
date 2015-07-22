@@ -38,10 +38,13 @@ public:
 
     std::vector<std::string> getVariableString();
 
-    void randomize(Variable v);
+    void randomize(int v);
     std::vector<int> index;
 private:
+    int function;
     float variable[6] = {1, 3, 4, 5, 2, 1};
+    const int MAX_RANDOM = 60;
+    const int MIN_RANDOM = -60;
 };
 
 #endif //SIMPLECHART_VARIABLESHANDLER_HPP
