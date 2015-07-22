@@ -1,3 +1,6 @@
+# Binary folder and files
+bin
+
 # Compiled Object files
 *.slo
 *.lo
