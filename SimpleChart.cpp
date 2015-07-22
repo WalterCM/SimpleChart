@@ -11,6 +11,7 @@ SimpleChart::SimpleChart(int function)
         , font()
         , title()
         , functionName()
+        , variables(function)
 {
     this->function = function;
 }
@@ -38,16 +39,16 @@ void SimpleChart::init()
     functionName.setPosition(SIMPLE_FUNCTION_POS_X, SIMPLE_FUNCTION_POS_Y);
     functionName.setCharacterSize(SIMPLE_FUNCTION_SIZE);
 
-    for (int i = 0; i < SIMPLE_NUMBER_OPTIONS; i++) {
+    for (int i = 0; i < variables.index.size(); i++) {
         sf::Text newVariableName;
         variableNames.push_back(newVariableName);
         variableNames[i].setFont(font);
-        variableNames[i].setString(SIMPLE_OPTION[i]);
+        variableNames[i].setString(SIMPLE_OPTION[variables.index[i]]);
         variableNames[i].setPosition(SIMPLE_OPTION1_POS_X[i], SIMPLE_OPTION_POS_Y);
         variableNames[i].setCharacterSize(SIMPLE_OPTION_SIZE);
     }
 
-    for (int i = 0; i < SIMPLE_NUMBER_OPTIONS; i++) {
+    for (int i = 0; i < variables.index.size(); i++) {
         sf::Text newVariableValue;
         variableValue.push_back(newVariableValue);
         variableValue[i].setFont(font);
@@ -56,6 +57,7 @@ void SimpleChart::init()
     }
     updateScale();
     updatePoints();
+    updateVariableValues();
 
     selected = 0;
 }
@@ -63,29 +65,31 @@ void SimpleChart::init()
 void SimpleChart::update()
 {
     initializeAxis();
-    updateVariableValues();
+
 
     time += clock.restart();
     if (time > sf::seconds(KEYBOARD_DELAY)) {
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Return)) {
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape)) {
             this->changeState(this->stateManager, new SelectFunction());
         }
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up)) {
-        variable.increase(selected);
+        variables.increase(selected);
         updatePoints();
+        updateVariableValues();
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down)) {
-        variable.decrease(selected);
+        variables.decrease(selected);
         updatePoints();
+        updateVariableValues();
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left) && !leftKey)
         selected--;
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right) && !rightKey)
         selected++;
     if (selected < 0)
-        selected = SIMPLE_NUMBER_OPTIONS - 1;
-    else if (selected >= SIMPLE_NUMBER_OPTIONS)
+        selected = (int)(variables.index.size() - 1);
+    else if (selected >= (int)(variables.index.size()))
         selected = 0;
 
     leftKey = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left);
@@ -113,7 +117,7 @@ void SimpleChart::draw(sf::RenderWindow* window)
         if (graphWindow.contains(p.getPosition()))
             window->draw(p);
     }
-    for (int i = 0; i < SIMPLE_NUMBER_OPTIONS; i++) {
+    for (int i = 0; i < variables.index.size(); i++) {
         variableNames[i].setColor(TEXT_COLOR);
     }
 
@@ -121,7 +125,7 @@ void SimpleChart::draw(sf::RenderWindow* window)
     for (sf::Text t : variableNames)
         window->draw(t);
 
-    for (int i = 0; i < SIMPLE_NUMBER_OPTIONS; i++) {
+    for (int i = 0; i < variables.index.size(); i++) {
         variableValue[i].setColor(TEXT_COLOR);
     }
 
@@ -223,8 +227,8 @@ std::string SimpleChart::getFunctionTitle()
 
 void SimpleChart::updateVariableValues()
 {
-    std::array<std::string, SIMPLE_NUMBER_OPTIONS> variableString = variable.getVariableString();
-    for (int i = 0; i < SIMPLE_NUMBER_OPTIONS; i++) {
+    std::vector<std::string> variableString = variables.getVariableString();
+    for (int i = 0; i < variables.index.size(); i++) {
         variableValue[i].setString(variableString[i]);
     }
 }
@@ -233,19 +237,19 @@ float SimpleChart::f(float x)
 {
     switch (function) {
         case Function::Triangular:
-            return Functions::triangular(x, variable);
+            return Functions::triangular(x, variables);
         case Function::FuncionR:
-            return Functions::funcionR(x, variable);
+            return Functions::funcionR(x, variables);
         case Function::FuncionG:
-            return Functions::funcionG(x, variable);
+            return Functions::funcionG(x, variables);
         case Function::FuncionS:
-            return Functions::funcionS(x, variable);
+            return Functions::funcionS(x, variables);
         case Function::Gausiana:
-            return Functions::gausiana(x, variable);
+            return Functions::gausiana(x, variables);
         case Function::Trapezoidal:
-            return Functions::trapezoidal(x, variable);
+            return Functions::trapezoidal(x, variables);
         case Function::PseudoExponencial:
-            return Functions::pseudoExponencial(x, variable);
+            return Functions::pseudoExponencial(x, variables);
         default:
             return 1;
     }

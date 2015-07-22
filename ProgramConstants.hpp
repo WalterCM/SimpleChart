@@ -91,4 +91,5 @@ const sf::Color TEXT_COLOR = sf::Color::White;                  // Color of the 
 const sf::Color TEXT_COLOR_SELECTED = sf::Color::Green;
 
 const float KEYBOARD_DELAY = 0.5;
+const float VARIABLE_DELTA = 0.1f;
 #endif //SIMPLECHART_PROGRAMCONSTANTS_HPP

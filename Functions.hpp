@@ -30,4 +30,5 @@ public:
 
 
 
+
 #endif //SIMPLECHART_FUNCTIONS_HPP

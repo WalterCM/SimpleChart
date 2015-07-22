@@ -8,6 +8,7 @@
 #include <string>
 #include <array>
 #include <iomanip>
+#include <vector>
 #include "ProgramConstants.hpp"
 
 
@@ -22,26 +23,25 @@ enum Variable {
 
 class VariablesHandler {
 public:
-    VariablesHandler()
-    {
-        srand(time(0));
-    }
+    VariablesHandler(int function);
+
     void increase(int v);
     void decrease(int v);
+    float getA() {  return variable[A]; }
+    float getB() {  return variable[B]; }
+    float getC() {  return variable[C]; }
+    float getD() {  return variable[D]; }
+    float getM() {  return variable[M]; }
+    float getK() {  return variable[K]; }
 
-    std::array<std::string, SIMPLE_NUMBER_OPTIONS> getVariableString();
+
+    std::vector<std::string> getVariableString();
 
     void randomize(Variable v);
-
-    float a = 1;
-    float b = 3;
-    float c = 4;
-    float d = 5;
-    float m = 2;
-    float k = 1;
+    std::vector<int> index;
 private:
-    std::array<std::string, SIMPLE_NUMBER_OPTIONS> variableString;
-    const float MAX_NUMBER = 6;
+    float variable[6] = {1, 3, 4, 5, 2, 1};
+    int function;
 };
 
 #endif //SIMPLECHART_VARIABLESHANDLER_HPP

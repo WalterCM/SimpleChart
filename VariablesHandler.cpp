@@ -1,86 +1,88 @@
 
-
 #include "VariablesHandler.hpp"
+#include "Functions.hpp"
+
+VariablesHandler::VariablesHandler(int function)
+{
+    srand(time(0));
+    switch (function) {
+        case Triangular:
+            index.push_back(A);
+            index.push_back(M);
+            index.push_back(B);
+            break;
+        case FuncionR:
+            index.push_back(A);
+            index.push_back(K);
+            break;
+        case FuncionG:
+            index.push_back(A);
+            index.push_back(M);
+            break;
+        case FuncionS:
+            index.push_back(A);
+            index.push_back(M);
+            index.push_back(B);
+            break;
+        case Gausiana:
+            index.push_back(M);
+            index.push_back(K);
+            break;
+        case Trapezoidal:
+            index.push_back(A);
+            index.push_back(B);
+            index.push_back(C);
+            index.push_back(D);
+            break;
+        case PseudoExponencial:
+            index.push_back(M);
+            index.push_back(K);
+            break;
+        default:break;
+    }
+
+}
 
 void VariablesHandler::increase(int v)
 {
-    switch(v) {
-        case A:
-            if (a + 0.1 < m)
-                a += 0.1;
-            break;
-        case B:
-            if (b + 0.1 < c)
-                b += 0.1;
-            break;
-        case C:
-            if (c + 0.1 < d)
-                c += 0.1;
-            break;
-        case D:
-            d += 0.1;
-            break;
-        case M:
-            if (m + 0.1 < b)
-                m += 0.1;
-            break;
-        case K:
-            k += 0.1;
-            break;
-        default:break;
+    int w = index[v];
+    if (w == index.back() || w == K)
+        variable[w] += VARIABLE_DELTA;
+    else {
+        int i;
+        for (i = 0; w != index[i]; i++);
+        if (variable[index[i]] + VARIABLE_DELTA <= variable[index[i + 1]])
+            variable[w] += VARIABLE_DELTA;
     }
 }
 
 void VariablesHandler::decrease(int v)
 {
-    switch(v) {
-        case A:
-            a -= 0.1;
-            break;
-        case B:
-            if (b - 0.1 > m)
-                b -= 0.1;
-            break;
-        case C:
-            if (c - 0.1 > b)
-                c -= 0.1;
-            break;
-        case D:
-            if (d - 0.1 > c)
-                d -= 0.1;
-            break;
-        case M:
-            if (m - 0.1 > a)
-                m -= 0.1;
-            break;
-        case K:
-            k -= 0.1;
-            break;
-        default:break;
+    int w = index[v];
+    if (w == index.front() || w == A || w == K)
+        variable[w] -= VARIABLE_DELTA;
+    else {
+        int i;
+        for (i = 0; w != index[i]; i++);
+        if (variable[index[i]] - VARIABLE_DELTA >= variable[index[i - 1]])
+            variable[w] -= VARIABLE_DELTA;
     }
 }
 
-std::array<std::string, SIMPLE_NUMBER_OPTIONS> VariablesHandler::getVariableString()
+std::vector<std::string> VariablesHandler::getVariableString()
 {
-    std::stringstream aString, bString, cString, dString, mString, kString;
-    aString << std::fixed << std::setprecision(1) << a;
-    bString << std::fixed << std::setprecision(1) << b;
-    cString << std::fixed << std::setprecision(1) << c;
-    dString << std::fixed << std::setprecision(1) << d;
-    mString << std::fixed << std::setprecision(1) << m;
-    kString << std::fixed << std::setprecision(1) << k;
-    variableString[0] = aString.str();
-    variableString[1] = bString.str();
-    variableString[2] = cString.str();
-    variableString[3] = dString.str();
-    variableString[4] = mString.str();
-    variableString[5] = kString.str();
+    std::vector<std::string> variableString;
+    for (int i = 0; i < index.size(); i++) {
+        std::stringstream ss;
+        ss << std::fixed << std::setprecision(1) << variable[index[i]];
+        variableString.push_back(ss.str());
+    }
 
     return variableString;
 }
 
 void VariablesHandler::randomize(Variable v)
-{
+{/*
     switch(v) {
         case A:
             a = rand() % (int)m;
@@ -100,5 +102,7 @@ void VariablesHandler::randomize(Variable v)
         case K:
             k = rand() % (int)(MAX_NUMBER);
             break;
-    }
+    }*/
 }
+
+
