@@ -28,7 +28,7 @@ const int MENU_NUMBER_OPTIONS = 2;                       // Number of optiosn in
 const std::string MENU_OPTION[] = {"Dibujar funcion", "Salir"};
 const int MENU_OPTION_SIZE = 50;                         // Size of the options
 const float MENU_OPTION_POS_X = WINDOW_WIDTH / 2;        // Position of each option
-const float MENU_OPTION1_POS_Y[] = {    WINDOW_HEIGHT * 9 / 16,
+const float MENU_OPTION_POS_Y[] = {    WINDOW_HEIGHT * 9 / 16,
                                         WINDOW_HEIGHT * 12 / 16};
 
 // -----------------------------------------------------------------------------------------
@@ -44,7 +44,7 @@ const std::string SELECTOR_OPTION[] = {"Triangular", "Funcion r", "Funcion G", "
                                        "Gausiana", "Trapezoidal", "Pseudo-Exponencial", "Atras"};
 const int SELECTOR_OPTION_SIZE = 50;                         // Size of the selector options
 const float SELECTOR_OPTION_POS_X = WINDOW_WIDTH / 2;        // Position of each option
-const float SELECTOR_OPTION1_POS_Y[] = {    WINDOW_HEIGHT * 5 / 16,
+const float SELECTOR_OPTION_POS_Y[] = {    WINDOW_HEIGHT * 5 / 16,
                                             WINDOW_HEIGHT * 6 / 16,
                                             WINDOW_HEIGHT * 7 / 16,
                                             WINDOW_HEIGHT * 8 / 16,
@@ -56,40 +56,53 @@ const float SELECTOR_OPTION1_POS_Y[] = {    WINDOW_HEIGHT * 5 / 16,
 // -----------------------------------------------------------------------------------------
 
 // Constants for SimpleChart
-const float EPSILON = 0.005f;
+const float EPSILON = 0.003f;
 const sf::Color AXIS_COLOR = sf::Color::Green;
 const int AXIS_THICKNESS = 3;
 const float AXIS_SIZE = WINDOW_WIDTH / 2;
+
+const float MAX_SCALE = 10;
+const float MIN_SCALE = 2;
 
 const std::string SIMPLE_TITLE_STRING = "Simple Chart";    // Title of the chart
 const int SIMPLE_TITLE_SIZE = (int)WINDOW_HEIGHT * 3 / 60;                          // Size of the title
 const float SIMPLE_TITLE_POS_X = WINDOW_WIDTH / 16;         // Position of the title
 const float SIMPLE_TITLE_POS_Y = WINDOW_HEIGHT / 16;
 
-const int SIMPLE_FUNCTION_SIZE = (int)WINDOW_HEIGHT * 2 / 60;;                          // Size of the title
+const int SIMPLE_FUNCTION_SIZE = (int)WINDOW_HEIGHT * 2 / 60;;                         // Size of the title
 const float SIMPLE_FUNCTION_POS_X = WINDOW_WIDTH / 16;         // Position of the title
 const float SIMPLE_FUNCTION_POS_Y = WINDOW_HEIGHT / 8;
 
 const std::string SIMPLE_OPTION[] = {"a", "b", "c", "d", "m", "k"};
-const int SIMPLE_OPTION_SIZE = 20;                         // Size of the options
+const int SIMPLE_OPTION_SIZE = (int)WINDOW_HEIGHT * 2 / 60;                         // Size of the options
 // Position of each option
-const float SIMPLE_OPTION1_POS_X[] = {    WINDOW_WIDTH * 9 / 16,
-                                          WINDOW_WIDTH * 10 / 16,
-                                          WINDOW_WIDTH * 11 / 16,
-                                          WINDOW_WIDTH * 12 / 16,
-                                          WINDOW_WIDTH * 13 / 16,
-                                          WINDOW_WIDTH * 14 / 16,
-                                          WINDOW_WIDTH * 15 / 16,
-                                          WINDOW_WIDTH * 16 / 16};
+const float SIMPLE_OPTION_POS_X[] = {WINDOW_WIDTH * 9 / 16,
+                                      WINDOW_WIDTH * 10 / 16,
+                                      WINDOW_WIDTH * 11 / 16,
+                                      WINDOW_WIDTH * 12 / 16,
+                                      WINDOW_WIDTH * 13 / 16,
+                                      WINDOW_WIDTH * 14 / 16,
+                                      WINDOW_WIDTH * 15 / 16,
+                                      WINDOW_WIDTH * 16 / 16};
 const float SIMPLE_OPTION_POS_Y = WINDOW_HEIGHT * 13 / 16;
 const float SIMPLE_OPTION_VALUE_POS_Y = WINDOW_HEIGHT * 14 / 16;
+
+const std::string ANNOTATION[] = {"[R] : Random",
+                                  "[+] : Zoom In",
+                                  "[-] : Zoom Out"};
+const int ANNOTATION_SIZE = (int)WINDOW_HEIGHT * 2 / 60;
+// Position of annotation
+const float ANNOTATION_POS_X = WINDOW_WIDTH * 1 / 32;
+const float ANNOTATION_POS_Y[] = {WINDOW_HEIGHT * 12 / 16,
+                                  WINDOW_HEIGHT * 13 / 16,
+                                  WINDOW_HEIGHT * 14 / 16};
+
 
 
 // -----------------------------------------------------------------------------------------
 
-const std::string DUMB_FONT = "../content/fonts/dumb/2Dumb.ttf";
-const std::string QUICKSAND_BOLD_FONT = "../content/fonts/quicksand/Quicksand-Bold.otf";
-const std::string QUICKSAND_REGULAR_FONT = "../content/fonts/quicksand/Quicksand-Regular.otf";
+const std::string QUICKSAND_BOLD_FONT = "../content/fonts/Quicksand-Bold.otf";
+const std::string QUICKSAND_REGULAR_FONT = "../content/fonts/Quicksand-Regular.otf";
 const sf::Color TEXT_COLOR = sf::Color::White;                  // Color of the non selected option
 
 // Color of selected option

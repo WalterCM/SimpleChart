@@ -8,7 +8,6 @@ SimpleChart::SimpleChart(int function)
         : xAxis(sf::Vector2f(AXIS_SIZE, AXIS_THICKNESS))
         , yAxis(sf::Vector2f(AXIS_SIZE, AXIS_THICKNESS))
         , graphWindow((WINDOW_WIDTH - AXIS_SIZE) / 2, (WINDOW_HEIGHT - AXIS_SIZE) / 2, AXIS_SIZE, AXIS_SIZE)
-        , dumbFont()
         , quicksandFontBold()
         , quicksandFontRegular()
         , title()
@@ -30,7 +29,6 @@ void SimpleChart::init()
     xAxis.setFillColor(AXIS_COLOR);
     yAxis.setFillColor(AXIS_COLOR);
 
-    dumbFont.loadFromFile(DUMB_FONT);
     quicksandFontBold.loadFromFile(QUICKSAND_BOLD_FONT);
     quicksandFontRegular.loadFromFile(QUICKSAND_REGULAR_FONT);
 
@@ -48,18 +46,29 @@ void SimpleChart::init()
         sf::Text newVariableName;
         variableNames.push_back(newVariableName);
         variableNames[i].setFont(quicksandFontBold);
+
         variableNames[i].setString(SIMPLE_OPTION[variables.index[i]]);
-        variableNames[i].setPosition(SIMPLE_OPTION1_POS_X[i], SIMPLE_OPTION_POS_Y);
-        variableNames[i].setCharacterSize(SIMPLE_OPTION_SIZE);
+        variableNames[i].setPosition(SIMPLE_OPTION_POS_X[i], SIMPLE_OPTION_POS_Y);
+        variableNames[i].setCharacterSize((uint)SIMPLE_OPTION_SIZE);
     }
 
     for (int i = 0; i < variables.index.size(); i++) {
         sf::Text newVariableValue;
         variableValue.push_back(newVariableValue);
         variableValue[i].setFont(quicksandFontRegular);
-        variableValue[i].setPosition(SIMPLE_OPTION1_POS_X[i], SIMPLE_OPTION_VALUE_POS_Y);
-        variableValue[i].setCharacterSize(SIMPLE_OPTION_SIZE);
+        variableValue[i].setPosition(SIMPLE_OPTION_POS_X[i], SIMPLE_OPTION_VALUE_POS_Y);
+        variableValue[i].setCharacterSize((uint)SIMPLE_OPTION_SIZE);
     }
+
+    for (int i = 0; i < 3; i++) {
+        sf::Text newAnnotation;
+        annotation.push_back(newAnnotation);
+        annotation[i].setFont(quicksandFontRegular);
+        annotation[i].setString(ANNOTATION[i]);
+        annotation[i].setPosition(ANNOTATION_POS_X, ANNOTATION_POS_Y[i]);
+        annotation[i].setCharacterSize((uint)ANNOTATION_SIZE);
+    }
+
     updateScale();
     updatePoints();
 
@@ -142,6 +151,9 @@ void SimpleChart::draw(sf::RenderWindow* window)
     for (sf::Text t : variableNames)
         window->draw(t);
 
+    for (sf::Text t: annotation)
+        window->draw(t);
+
     for (int i = 0; i < variables.index.size(); i++) {
         variableValue[i].setColor(TEXT_COLOR);
     }
@@ -179,7 +191,7 @@ void SimpleChart::updatePoints()
 
 void SimpleChart::zoomIn()
 {
-    if (scale > 2) {
+    if (scale > MIN_SCALE) {
         scale--;
         updateScale();
     }
@@ -187,7 +199,7 @@ void SimpleChart::zoomIn()
 
 void SimpleChart::zoomOut()
 {
-    if (scale < 10) {
+    if (scale < MAX_SCALE) {
         scale++;
         updateScale();
     }
@@ -200,7 +212,7 @@ void SimpleChart::updateAxis()
     for (int i = 0; i <= scale * 2; i++) {
         sf::Text newText;
         xAxisNumbers.push_back(newText);
-        xAxisNumbers[i].setFont(dumbFont);
+        xAxisNumbers[i].setFont(quicksandFontBold);
         int number = i - (int)scale;
         std::stringstream ss;
         ss << number;
@@ -218,7 +230,7 @@ void SimpleChart::updateAxis()
     for (int i = 0; i <= scale * 2; i++) {
         sf::Text newText;
         yAxisNumbers.push_back(newText);
-        yAxisNumbers[i].setFont(dumbFont);
+        yAxisNumbers[i].setFont(quicksandFontBold);
 
         std::stringstream ss;
         int number = i - (int)scale;

@@ -4,7 +4,7 @@
 
 VariablesHandler::VariablesHandler(int function, int scale)
 {
-    srand(time(0));
+    srand((uint)time(0));
     this->function = function;
     setScale(scale);
     switch (function) {
@@ -74,15 +74,15 @@ void VariablesHandler::randomize(int v)
     if (w == K || (w == index.front() && index[v + 1] == K)) {
         variable[w] = (rand() % (maxRandom - minRandom) + minRandom) / 10.0f;
     } else if (w == index.back() || index[v + 1] == K) {
-        int mi = (int) (variable[index[v - 1]] * 10);
+        int mi = (int)(variable[index[v - 1]] * 10);
         variable[w] = (rand() % (maxRandom - mi) + mi) / 10.0f;
     } else if (w == index.front()) {
-        int ma = (int) (variable[index[v + 1]] * 10);
+        int ma = (int)(variable[index[v + 1]] * 10);
         variable[w] = (rand() % (ma - minRandom) + minRandom) / 10.0f;
     } else {
-        int mi = (int) (variable[index[v - 1]] * 10);
-        int ma = (int) (variable[index[v + 1]] * 10);
-        variable[w] = (rand() % (ma - mi) + mi) / 10.0f;
+        int mi = (int)(variable[index[v - 1]] * 10);
+        int ma = (int)(variable[index[v + 1]] * 10);
+        variable[w] = (rand() % (int)(ma - mi - 0.005) + mi + 0.005f) / 10.0f;
     }
 
     if (function == FuncionS) {

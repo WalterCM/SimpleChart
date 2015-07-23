@@ -31,7 +31,7 @@ void MainMenu::init() {
         option[i].setColor(TEXT_COLOR);
         option[i].setOrigin(option[i].getGlobalBounds().width / 2, option[i].getGlobalBounds().height / 2);
 
-        option[i].setPosition(MENU_OPTION_POS_X, MENU_OPTION1_POS_Y[i]);
+        option[i].setPosition(MENU_OPTION_POS_X, MENU_OPTION_POS_Y[i]);
     }
 
     selected = 0;

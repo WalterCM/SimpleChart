@@ -34,8 +34,8 @@ private:
 
     std::vector<sf::Text>           variableNames;
     std::vector<sf::Text>           variableValue;
+    std::vector<sf::Text>           annotation;
 
-    sf::Font                        dumbFont;
     sf::Font                        quicksandFontBold;
     sf::Font                        quicksandFontRegular;
     sf::Text                        title;

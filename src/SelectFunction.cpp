@@ -31,7 +31,7 @@ void SelectFunction::init()
         option[i].setColor(TEXT_COLOR);
         option[i].setOrigin(option[i].getGlobalBounds().width / 2, option[i].getGlobalBounds().height / 2);
 
-        option[i].setPosition(SELECTOR_OPTION_POS_X, SELECTOR_OPTION1_POS_Y[i]);
+        option[i].setPosition(SELECTOR_OPTION_POS_X, SELECTOR_OPTION_POS_Y[i]);
     }
 
     selected = 0;
