@@ -50,7 +50,7 @@ void VariablesHandler::increase(int v)
     if (w == index.back() || w == K)
         variable[w] += VARIABLE_DELTA;
     else
-        if (variable[index[v]] + VARIABLE_DELTA <= variable[index[v + 1]] || index[v + 1] == K)
+        if (variable[index[v + 1]] - (variable[index[v]] + VARIABLE_DELTA) > EPSILON || index[v + 1] == K)
             variable[w] += VARIABLE_DELTA;
     if (function == FuncionS)
         fixM();
@@ -62,7 +62,7 @@ void VariablesHandler::decrease(int v)
     if (w == index.front() || w == A || w == K)
         variable[w] -= VARIABLE_DELTA;
     else
-        if (variable[index[v]] - VARIABLE_DELTA >= variable[index[v - 1]])
+        if ((variable[index[v]] - VARIABLE_DELTA) - variable[index[v - 1]] > EPSILON )
             variable[w] -= VARIABLE_DELTA;
     if (function == FuncionS)
         fixM();

@@ -8,7 +8,9 @@ SimpleChart::SimpleChart(int function)
         : xAxis(sf::Vector2f(AXIS_SIZE, AXIS_THICKNESS))
         , yAxis(sf::Vector2f(AXIS_SIZE, AXIS_THICKNESS))
         , graphWindow((WINDOW_WIDTH - AXIS_SIZE) / 2, (WINDOW_HEIGHT - AXIS_SIZE) / 2, AXIS_SIZE, AXIS_SIZE)
-        , font()
+        , dumbFont()
+        , quicksandFontBold()
+        , quicksandFontRegular()
         , title()
         , functionName()
         , variables(function, (int)scale)
@@ -28,21 +30,24 @@ void SimpleChart::init()
     xAxis.setFillColor(AXIS_COLOR);
     yAxis.setFillColor(AXIS_COLOR);
 
-    font.loadFromFile(DUMB_FONT);
+    dumbFont.loadFromFile(DUMB_FONT);
+    quicksandFontBold.loadFromFile(QUICKSAND_BOLD_FONT);
+    quicksandFontRegular.loadFromFile(QUICKSAND_REGULAR_FONT);
+
     title.setString(SIMPLE_TITLE_STRING);
-    title.setFont(font);
+    title.setFont(quicksandFontBold);
     title.setPosition(SIMPLE_TITLE_POS_X, SIMPLE_TITLE_POS_Y);
-    title.setCharacterSize(SIMPLE_TITLE_SIZE);
+    title.setCharacterSize((uint)SIMPLE_TITLE_SIZE);
 
     functionName.setString(getFunctionTitle());
-    functionName.setFont(font);
+    functionName.setFont(quicksandFontRegular);
     functionName.setPosition(SIMPLE_FUNCTION_POS_X, SIMPLE_FUNCTION_POS_Y);
-    functionName.setCharacterSize(SIMPLE_FUNCTION_SIZE);
+    functionName.setCharacterSize((uint)SIMPLE_FUNCTION_SIZE);
 
     for (int i = 0; i < variables.index.size(); i++) {
         sf::Text newVariableName;
         variableNames.push_back(newVariableName);
-        variableNames[i].setFont(font);
+        variableNames[i].setFont(quicksandFontBold);
         variableNames[i].setString(SIMPLE_OPTION[variables.index[i]]);
         variableNames[i].setPosition(SIMPLE_OPTION1_POS_X[i], SIMPLE_OPTION_POS_Y);
         variableNames[i].setCharacterSize(SIMPLE_OPTION_SIZE);
@@ -51,7 +56,7 @@ void SimpleChart::init()
     for (int i = 0; i < variables.index.size(); i++) {
         sf::Text newVariableValue;
         variableValue.push_back(newVariableValue);
-        variableValue[i].setFont(font);
+        variableValue[i].setFont(quicksandFontRegular);
         variableValue[i].setPosition(SIMPLE_OPTION1_POS_X[i], SIMPLE_OPTION_VALUE_POS_Y);
         variableValue[i].setCharacterSize(SIMPLE_OPTION_SIZE);
     }
@@ -116,12 +121,12 @@ void SimpleChart::draw(sf::RenderWindow* window)
     window->draw(functionName);
 
     for (sf::Text t : xAxisNumbers) {
-        if (t.getString() != "0" && (int)t.getPosition().x % pixelsByGroup == 0)
+        if (t.getString() != "0" && (int)t.getPosition().x % (int)pixelsByGroup == 0)
             window->draw(t);
     }
 
     for (sf::Text t : yAxisNumbers) {
-        if (t.getString() != "0" && (int)t.getPosition().y % pixelsByGroup == 0)
+        if (t.getString() != "0" && (int)t.getPosition().y % (int)pixelsByGroup == 0)
             window->draw(t);
     }
 
@@ -162,7 +167,7 @@ void SimpleChart::updatePoints()
     if (!points.empty())
         points.clear();
     int i = 0;
-    for (float p = -scale; p <= scale; p += epsilon) {
+    for (float p = -scale; p <= scale; p += EPSILON) {
         sf::CircleShape newPoint(1);
         points.push_back(newPoint);
         points[i].setPosition(WINDOW_WIDTH / 2 + p * pixelsByUnit, WINDOW_HEIGHT / 2 - f(p) * pixelsByUnit);
@@ -195,7 +200,7 @@ void SimpleChart::updateAxis()
     for (int i = 0; i <= scale * 2; i++) {
         sf::Text newText;
         xAxisNumbers.push_back(newText);
-        xAxisNumbers[i].setFont(font);
+        xAxisNumbers[i].setFont(dumbFont);
         int number = i - (int)scale;
         std::stringstream ss;
         ss << number;
@@ -213,7 +218,7 @@ void SimpleChart::updateAxis()
     for (int i = 0; i <= scale * 2; i++) {
         sf::Text newText;
         yAxisNumbers.push_back(newText);
-        yAxisNumbers[i].setFont(font);
+        yAxisNumbers[i].setFont(dumbFont);
 
         std::stringstream ss;
         int number = i - (int)scale;

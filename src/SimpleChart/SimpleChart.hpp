@@ -35,19 +35,19 @@ private:
     std::vector<sf::Text>           variableNames;
     std::vector<sf::Text>           variableValue;
 
-    sf::Font                        font;
+    sf::Font                        dumbFont;
+    sf::Font                        quicksandFontBold;
+    sf::Font                        quicksandFontRegular;
     sf::Text                        title;
     sf::Text                        functionName;
 
     sf::Rect<float>                 graphWindow;
     std::vector<sf::CircleShape>    points;
 
-    const float                     epsilon = 0.01f;
-
     float                           scale = 5;
 
-    int                             pixelsByUnit;
-    int                             pixelsByGroup;
+    float                           pixelsByUnit;
+    float                           pixelsByGroup;
 
     int                             function;
 

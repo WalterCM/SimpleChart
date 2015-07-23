@@ -6,8 +6,7 @@
 typedef unsigned int uint;
 Program::Program()
         : window(sf::VideoMode((uint)WINDOW_WIDTH, (uint)WINDOW_HEIGHT),
-                 TITLE_STRING,
-                 sf::Style::None | sf::Style::Resize)
+                 TITLE_STRING)
         , stateManager()
 {
     stateManager.setWindow(&window);
@@ -55,4 +54,3 @@ void Program::render()
     stateManager.draw();
     window.display();
 }
-

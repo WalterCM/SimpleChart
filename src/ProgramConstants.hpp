@@ -9,9 +9,9 @@
 const float FPS = 120;                                  // Frames per second
 
 // Width on the window
-const int WINDOW_WIDTH = sf::VideoMode::getDesktopMode().width;
+const float WINDOW_WIDTH = sf::VideoMode::getDesktopMode().width;
 // Height of the window
-const int WINDOW_HEIGHT = sf::VideoMode::getDesktopMode().height;
+const float WINDOW_HEIGHT = sf::VideoMode::getDesktopMode().height;
 
 const std::string TITLE_STRING = "Simple Chart";        // Title of the program.
 const sf::Color BACKGROUND_COLOR = sf::Color::Black;
@@ -56,16 +56,17 @@ const float SELECTOR_OPTION1_POS_Y[] = {    WINDOW_HEIGHT * 5 / 16,
 // -----------------------------------------------------------------------------------------
 
 // Constants for SimpleChart
+const float EPSILON = 0.005f;
 const sf::Color AXIS_COLOR = sf::Color::Green;
 const int AXIS_THICKNESS = 3;
-const int AXIS_SIZE = 500;
+const float AXIS_SIZE = WINDOW_WIDTH / 2;
 
 const std::string SIMPLE_TITLE_STRING = "Simple Chart";    // Title of the chart
-const int SIMPLE_TITLE_SIZE = 30;                          // Size of the title
+const int SIMPLE_TITLE_SIZE = (int)WINDOW_HEIGHT * 3 / 60;                          // Size of the title
 const float SIMPLE_TITLE_POS_X = WINDOW_WIDTH / 16;         // Position of the title
 const float SIMPLE_TITLE_POS_Y = WINDOW_HEIGHT / 16;
 
-const int SIMPLE_FUNCTION_SIZE = 20;                          // Size of the title
+const int SIMPLE_FUNCTION_SIZE = (int)WINDOW_HEIGHT * 2 / 60;;                          // Size of the title
 const float SIMPLE_FUNCTION_POS_X = WINDOW_WIDTH / 16;         // Position of the title
 const float SIMPLE_FUNCTION_POS_Y = WINDOW_HEIGHT / 8;
 
@@ -80,8 +81,8 @@ const float SIMPLE_OPTION1_POS_X[] = {    WINDOW_WIDTH * 9 / 16,
                                           WINDOW_WIDTH * 14 / 16,
                                           WINDOW_WIDTH * 15 / 16,
                                           WINDOW_WIDTH * 16 / 16};
-const float SIMPLE_OPTION_POS_Y = WINDOW_HEIGHT * 6 / 8;
-const float SIMPLE_OPTION_VALUE_POS_Y = WINDOW_HEIGHT * 7 / 8;
+const float SIMPLE_OPTION_POS_Y = WINDOW_HEIGHT * 13 / 16;
+const float SIMPLE_OPTION_VALUE_POS_Y = WINDOW_HEIGHT * 14 / 16;
 
 
 // -----------------------------------------------------------------------------------------
@@ -94,6 +95,6 @@ const sf::Color TEXT_COLOR = sf::Color::White;                  // Color of the 
 // Color of selected option
 const sf::Color TEXT_COLOR_SELECTED = sf::Color::Green;
 
-const float KEYBOARD_DELAY = 0.5;
-const float VARIABLE_DELTA = 0.15f;
+const float KEYBOARD_DELAY = 0.3;
+const float VARIABLE_DELTA = 0.1f;
 #endif //SIMPLECHART_PROGRAMCONSTANTS_HPP
