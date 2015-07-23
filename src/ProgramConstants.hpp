@@ -102,8 +102,8 @@ const float ANNOTATION_POS_Y[] = {WINDOW_HEIGHT * 12 / 16,
 
 // -----------------------------------------------------------------------------------------
 
-const std::string QUICKSAND_BOLD_FONT = "../content/fonts/Quicksand-Bold.otf";
-const std::string QUICKSAND_REGULAR_FONT = "../content/fonts/Quicksand-Regular.otf";
+const std::string QUICKSAND_BOLD_FONT = "content/fonts/Quicksand-Bold.otf";
+const std::string QUICKSAND_REGULAR_FONT = "content/fonts/Quicksand-Regular.otf";
 const sf::Color TEXT_COLOR = sf::Color::White;                  // Color of the non selected option
 
 // Color of selected option
