@@ -2,6 +2,7 @@
 #include "VariablesHandler.hpp"
 #include "../Functions/FuzzyLogicFunctions.hpp"
 
+// Adds only the indexes of used variables to the array
 VariablesHandler::VariablesHandler(int function, int scale)
 {
     srand((uint)time(0));
@@ -44,6 +45,7 @@ VariablesHandler::VariablesHandler(int function, int scale)
     }
 }
 
+// Function that increase the selected variable
 void VariablesHandler::increase(int v)
 {
     int w = index[v];
@@ -56,6 +58,7 @@ void VariablesHandler::increase(int v)
         fixM();
 }
 
+// Function that decrease the selected variable
 void VariablesHandler::decrease(int v)
 {
     int w = index[v];
@@ -68,6 +71,7 @@ void VariablesHandler::decrease(int v)
         fixM();
 }
 
+// Function that randomize  the selected variable
 void VariablesHandler::randomize(int v)
 {
     int w = index[v];
@@ -94,19 +98,21 @@ void VariablesHandler::randomize(int v)
     }
 }
 
+// Function that fixes the M value when function is FunctionS
 void VariablesHandler::fixM()
 {
     variable[M] = (variable[A] + variable[B]) / 2;
 }
 
 
+// Function that sets the new scale of change
 void VariablesHandler::setScale(int scale)
 {
     minRandom = scale * -10;
     maxRandom = scale * 10;
 }
 
-
+// Function that returns a vector of strings of variable names.
 std::vector<std::string> VariablesHandler::getVariableString()
 {
     std::vector<std::string> variableString;

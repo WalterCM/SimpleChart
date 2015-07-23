@@ -12,12 +12,15 @@ public:
     void                run();
 
 private:
+    // Basic sub-methods of run()
     void                processEvents();
     void                update();
     void                render();
 
-    sf::RenderWindow    window;    // Main window for the GUI
+    // Main window
+    sf::RenderWindow    window;
 
+    // The object that controls of the states of the program
     StateManager        stateManager;
 };
 

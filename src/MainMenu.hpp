@@ -15,15 +15,21 @@ public:
     void        destroy();
 
 private:
+    // Enum of options inside the main menu
     enum Option {
         Draw,
         Quit
     };
+
+    // Different fonts for the title and the options
     sf::Font    titleFont;
     sf::Font    optionFont;
     sf::Text    title;
+
+    // Array of sf::Text(options)
     std::array<sf::Text, MENU_NUMBER_OPTIONS> option;
 
+    // Variables for keyboard support
     int         selected;
     bool        upKey, downKey;
     bool        leftKey, rightKey;

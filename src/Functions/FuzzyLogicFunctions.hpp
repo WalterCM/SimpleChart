@@ -4,6 +4,7 @@
 
 class VariablesHandler;
 
+// Enumerator of functions for switchs and arrays
 enum Function {
     Triangular,
     FuncionR,
@@ -14,7 +15,7 @@ enum Function {
     PseudoExponencial
 };
 
-const float e = 2.71828f;
+const float e = 2.71828f;   // Euler number constant
 class Functions {
 public:
     static float triangular(float, VariablesHandler);
