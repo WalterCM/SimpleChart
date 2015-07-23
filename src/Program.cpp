@@ -3,7 +3,7 @@
 #include "Program.hpp"
 #include "ProgramConstants.hpp"
 #include "MainMenu.hpp"
-typedef unsigned int uint;
+
 Program::Program()
         : window(sf::VideoMode((uint)WINDOW_WIDTH, (uint)WINDOW_HEIGHT),
                  TITLE_STRING)

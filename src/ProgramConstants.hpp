@@ -5,6 +5,8 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 
+typedef unsigned int uint;
+
 const float FPS = 120;                                  // Frames per second
 
 // Width on the window
@@ -23,7 +25,7 @@ const int MENU_TITLE_SIZE = 100;                         // Size of the title
 const float MENU_TITLE_POS_X = WINDOW_WIDTH / 2;         // Position of the title
 const float MENU_TITLE_POS_Y = WINDOW_HEIGHT / 4;
 
-const int MENU_NUMBER_OPTIONS = 2;                       // Number of optiosn in the menu
+const int MENU_NUMBER_OPTIONS = 2;                       // Number of options in the menu
 const std::string MENU_OPTION[] = {"Dibujar funcion", "Salir"};
 const int MENU_OPTION_SIZE = 50;                         // Size of the options
 const float MENU_OPTION_POS_X = WINDOW_WIDTH / 2;        // Position of each option

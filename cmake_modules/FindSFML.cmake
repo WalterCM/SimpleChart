@@ -65,6 +65,7 @@ SET(SFML_INCLUDE_SEARCH_DIR
     /opt/csw/include
     /opt/include/SFML
     /opt/include
+    C:/MinGW/include
     ${SFMLDIR}
     ${SFMLDIR}/include
 )
@@ -78,6 +79,7 @@ SET(SFML_LIBRARY_SEARCH_DIR
     /opt/local
     /opt/csw
     /opt
+    C:/MinGW/lib
     ${SFMLDIR}
     ${SFMLDIR}/lib/vc2008
     ${SFMLDIR}/lib/vc2005
