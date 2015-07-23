@@ -3,8 +3,7 @@
 #define SIMPLECHART_PROGRAMCONSTANTS_HPP
 
 #include <iostream>
-#include <Graphics/Color.hpp>
-#include <Window/VideoMode.hpp>
+#include <SFML/Graphics.hpp>
 
 const float FPS = 120;                                  // Frames per second
 
