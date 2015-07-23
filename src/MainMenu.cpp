@@ -3,17 +3,19 @@
 #include "SelectFunction.hpp"
 
 MainMenu::MainMenu()
-        : font()
+        : titleFont()
+        , optionFont()
         , title()
 {}
 
 void MainMenu::init() {
     time = sf::Time(sf::Time::Zero);
 
-    font.loadFromFile(PROGRAM_FONT);
+    titleFont.loadFromFile(QUICKSAND_BOLD_FONT);
+    optionFont.loadFromFile(QUICKSAND_REGULAR_FONT);
 
     title.setString(MENU_TITLE_STRING);
-    title.setFont(font);
+    title.setFont(titleFont);
     title.setCharacterSize(MENU_TITLE_SIZE);
 
     title.setColor(TEXT_COLOR);
@@ -24,7 +26,7 @@ void MainMenu::init() {
     for (int i = 0; i < MENU_NUMBER_OPTIONS; i++) {
 
         option[i].setString(MENU_OPTION[i]);
-        option[i].setFont(font);
+        option[i].setFont(optionFont);
         option[i].setCharacterSize(MENU_OPTION_SIZE);
         option[i].setColor(TEXT_COLOR);
         option[i].setOrigin(option[i].getGlobalBounds().width / 2, option[i].getGlobalBounds().height / 2);

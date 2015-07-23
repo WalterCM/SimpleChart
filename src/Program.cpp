@@ -3,9 +3,11 @@
 #include "Program.hpp"
 #include "ProgramConstants.hpp"
 #include "MainMenu.hpp"
-
+typedef unsigned int uint;
 Program::Program()
-        : window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), TITLE_STRING)
+        : window(sf::VideoMode((uint)WINDOW_WIDTH, (uint)WINDOW_HEIGHT),
+                 TITLE_STRING,
+                 sf::Style::None | sf::Style::Resize)
         , stateManager()
 {
     stateManager.setWindow(&window);

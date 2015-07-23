@@ -4,11 +4,14 @@
 
 #include <iostream>
 #include <Graphics/Color.hpp>
+#include <Window/VideoMode.hpp>
 
 const float FPS = 120;                                  // Frames per second
 
-const int WINDOW_WIDTH = 800;                           // Width on the window
-const int WINDOW_HEIGHT = 600;                          // Height of the window
+// Width on the window
+const int WINDOW_WIDTH = sf::VideoMode::getDesktopMode().width;
+// Height of the window
+const int WINDOW_HEIGHT = sf::VideoMode::getDesktopMode().height;
 
 const std::string TITLE_STRING = "Simple Chart";        // Title of the program.
 const sf::Color BACKGROUND_COLOR = sf::Color::Black;
@@ -66,7 +69,6 @@ const int SIMPLE_FUNCTION_SIZE = 20;                          // Size of the tit
 const float SIMPLE_FUNCTION_POS_X = WINDOW_WIDTH / 16;         // Position of the title
 const float SIMPLE_FUNCTION_POS_Y = WINDOW_HEIGHT / 8;
 
-const int SIMPLE_NUMBER_OPTIONS = 6;                       // Number of options in the char
 const std::string SIMPLE_OPTION[] = {"a", "b", "c", "d", "m", "k"};
 const int SIMPLE_OPTION_SIZE = 20;                         // Size of the options
 // Position of each option
@@ -84,7 +86,9 @@ const float SIMPLE_OPTION_VALUE_POS_Y = WINDOW_HEIGHT * 7 / 8;
 
 // -----------------------------------------------------------------------------------------
 
-const std::string PROGRAM_FONT = "../content/fonts/2Dumb.ttf";  // Font used in all the program
+const std::string DUMB_FONT = "../content/fonts/dumb/2Dumb.ttf";
+const std::string QUICKSAND_BOLD_FONT = "../content/fonts/quicksand/Quicksand-Bold.otf";
+const std::string QUICKSAND_REGULAR_FONT = "../content/fonts/quicksand/Quicksand-Regular.otf";
 const sf::Color TEXT_COLOR = sf::Color::White;                  // Color of the non selected option
 
 // Color of selected option

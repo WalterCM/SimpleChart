@@ -18,7 +18,8 @@ private:
         Back = 7
     };
 
-    sf::Font                                        font;
+    sf::Font                                        titleFont;
+    sf::Font                                        optionFont;
     sf::Text                                        title;
     std::array<sf::Text, SELECTOR_NUMBER_OPTIONS>   option;
 

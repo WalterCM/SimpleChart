@@ -3,6 +3,7 @@
 #include "FuzzyLogicFunctions.hpp"
 #include "../SimpleChart/VariablesHandler.hpp"
 
+enum {END};
 
 float Functions::triangular(float x, VariablesHandler variables)
 {
@@ -19,6 +20,8 @@ float Functions::funcionR(float x, VariablesHandler variables) {
         return 0;
     if (x > variables.getA())
         return 1 - (float)pow(e, - variables.getK() * pow(x - variables.getA(), 2));
+
+    return END;
 }
 
 float Functions::funcionG(float x, VariablesHandler variables) {
@@ -40,6 +43,8 @@ float)pow((x - variables.getA()) / (variables.getB() - variables.getA()), 2);
         return 1 - 2 * (float)pow((x - variables.getB()) / (variables.getB() - variables.getA()), 2);
     else if (x >= variables.getB())
         return 1;
+
+    return END;
 }
 
 float Functions::gausiana(float x, VariablesHandler variables) {

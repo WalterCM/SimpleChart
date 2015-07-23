@@ -19,7 +19,8 @@ private:
         Draw,
         Quit
     };
-    sf::Font    font;
+    sf::Font    titleFont;
+    sf::Font    optionFont;
     sf::Text    title;
     std::array<sf::Text, MENU_NUMBER_OPTIONS> option;
 

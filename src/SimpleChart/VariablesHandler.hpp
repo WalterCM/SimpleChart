@@ -29,7 +29,7 @@ public:
     void decrease(int v);
     void randomize(int v);
 
-    float fixM();
+    void fixM();
     void setScale(int scale);
 
     float getA() {  return variable[A]; }

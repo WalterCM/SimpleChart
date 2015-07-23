@@ -42,7 +42,6 @@ VariablesHandler::VariablesHandler(int function, int scale)
             break;
         default:break;
     }
-
 }
 
 void VariablesHandler::increase(int v)
@@ -86,11 +85,16 @@ void VariablesHandler::randomize(int v)
         variable[w] = (rand() % (ma - mi) + mi) / 10.0f;
     }
 
-    if (function == FuncionS)
+    if (function == FuncionS) {
+        if (w == M) {
+            randomize(0);
+            randomize(2);
+        }
         fixM();
+    }
 }
 
-float VariablesHandler::fixM()
+void VariablesHandler::fixM()
 {
     variable[M] = (variable[A] + variable[B]) / 2;
 }

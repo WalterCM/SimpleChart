@@ -24,11 +24,6 @@ public:
     static float gausiana(float, VariablesHandler);
     static float trapezoidal(float, VariablesHandler);
     static float pseudoExponencial(float, VariablesHandler);
-
 };
-
-
-
-
 
 #endif //SIMPLECHART_FUZZY_LOGIC_FUNCTIONS_HPP

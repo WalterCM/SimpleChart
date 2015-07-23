@@ -28,7 +28,7 @@ void SimpleChart::init()
     xAxis.setFillColor(AXIS_COLOR);
     yAxis.setFillColor(AXIS_COLOR);
 
-    font.loadFromFile(PROGRAM_FONT);
+    font.loadFromFile(DUMB_FONT);
     title.setString(SIMPLE_TITLE_STRING);
     title.setFont(font);
     title.setPosition(SIMPLE_TITLE_POS_X, SIMPLE_TITLE_POS_Y);
@@ -201,6 +201,7 @@ void SimpleChart::updateAxis()
         ss << number;
         std::string s = ss.str();
         xAxisNumbers[i].setString(s);
+        xAxisNumbers[i].setOrigin(xAxisNumbers[i].getLocalBounds().width / 2, xAxisNumbers[i].getLocalBounds().height / 2);
         xAxisNumbers[i].setCharacterSize(15);
         xAxisNumbers[i].setOrigin(xAxisNumbers[i].getLocalBounds().width / 2,
                                   xAxisNumbers[i].getLocalBounds().height / 2);
@@ -219,6 +220,7 @@ void SimpleChart::updateAxis()
         ss << number;
         std::string s = ss.str();
         yAxisNumbers[i].setString(s);
+        yAxisNumbers[i].setOrigin(yAxisNumbers[i].getLocalBounds().width / 2, yAxisNumbers[i].getLocalBounds().height / 2);
         yAxisNumbers[i].setCharacterSize(15);
         yAxisNumbers[i].setOrigin(yAxisNumbers[i].getLocalBounds().width / 2,
                                   yAxisNumbers[i].getLocalBounds().height / 2);

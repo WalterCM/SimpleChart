@@ -4,7 +4,8 @@
 #include "SimpleChart/SimpleChart.hpp"
 
 SelectFunction::SelectFunction()
-        : font()
+        : titleFont()
+        , optionFont()
         , title()
 {}
 
@@ -12,10 +13,10 @@ void SelectFunction::init()
 {
     time = sf::Time(sf::Time::Zero);
 
-    font.loadFromFile(PROGRAM_FONT);
-
+    titleFont.loadFromFile(QUICKSAND_BOLD_FONT);
+    optionFont.loadFromFile(QUICKSAND_REGULAR_FONT);
     title.setString(SELECTOR_TITLE_STRING);
-    title.setFont(font);
+    title.setFont(titleFont);
     title.setCharacterSize(SELECTOR_TITLE_SIZE);
 
     title.setColor(TEXT_COLOR);
@@ -25,7 +26,7 @@ void SelectFunction::init()
 
     for (int i = 0; i < option.size(); i++) {
         option[i].setString(SELECTOR_OPTION[i]);
-        option[i].setFont(font);
+        option[i].setFont(optionFont);
         option[i].setCharacterSize(SELECTOR_OPTION_SIZE);
         option[i].setColor(TEXT_COLOR);
         option[i].setOrigin(option[i].getGlobalBounds().width / 2, option[i].getGlobalBounds().height / 2);
